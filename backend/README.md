@@ -29,3 +29,13 @@ if you want to use the `app.py` file to start the server, make sure to have an `
 ```bash
 export ENV=development
 ```
+
+## API documentation
+
+The API documentation is available at /docs or /redoc after starting the server.
+You can access the documentation by visiting the following URL: (use the port number you have set)
+
+```txt
+http://localhost:42069/docs
+http://localhost:42069/redoc
+```
