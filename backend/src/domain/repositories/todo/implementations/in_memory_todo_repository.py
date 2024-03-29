@@ -23,7 +23,7 @@ class InMemoryTodoRepository(TodoRepository):
         self._id_counter += 1
         return todo_in_db
 
-    def update(self, todo_id: int, todo_data: ToDo) -> ToDoInDB:
+    def update_by_id(self, todo_id: int, todo_data: ToDo) -> ToDoInDB:
         todo_in_db = self.todos.get(todo_id, None)
         if todo_in_db:
             todo_in_db.title = todo_data.title or todo_in_db.title

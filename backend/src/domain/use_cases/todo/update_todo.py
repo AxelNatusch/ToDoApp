@@ -6,5 +6,5 @@ class UpdateTodo:
     def __init__(self, todo_repository: TodoRepository):
         self.todo_repository = todo_repository
 
-    def execute(self, todo_id: int, todo_data: ToDo) -> ToDoInDB:
-        return self.todo_repository.update(todo_id, todo_data)
+    def update_by_id(self, todo_id: int, todo_data: ToDo) -> ToDoInDB:
+        return self.todo_repository.update_by_id(todo_id, todo_data)

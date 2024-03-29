@@ -75,7 +75,7 @@ async def delete_todo_item(
     todo_id: Annotated[int, Path(description="The ID of the todo to delete")],
     delete_todo: Annotated[DeleteTodo, Depends(get_delete_todo)],
 ) -> bool:
-    success = delete_todo.execute(todo_id)
+    success = delete_todo.delete_by_id(todo_id)
     if not success:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="Todo not found"

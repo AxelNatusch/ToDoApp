@@ -9,7 +9,7 @@ class TodoRepository(ABC):
         pass
 
     @abstractmethod
-    def update(self, todo_id: int, todo_data: ToDo) -> ToDoInDB:
+    def update_by_id(self, todo_id: int, todo_data: ToDo) -> ToDoInDB:
         pass
 
     @abstractmethod
