@@ -1,4 +1,4 @@
-from typing import Annotated, List
+from typing import Annotated
 
 from fastapi import APIRouter, Body, Depends, HTTPException, Path, Query, status
 
@@ -40,7 +40,7 @@ def get_update_todo() -> UpdateTodo:
     return UpdateTodo(todo_repository=repository)
 
 
-@router.get("/{todo_id}", response_model=ToDoInDB)
+@router.get("/{todo_id}", response_model=ToDoInDB, status_code=status.HTTP_200_OK)
 async def get_todo_by_id(
     todo_id: Annotated[int, Path(description="The ID of the todo to get")],
     get_todo: Annotated[GetTodo, Depends(get_get_todo)],
@@ -61,16 +61,19 @@ async def create_todo_item(
     return create_todo.execute(todo_data)
 
 
-@router.put("/{todo_id}", response_model=ToDoInDB)
+@router.put("/{todo_id}", response_model=ToDoInDB, status_code=status.HTTP_200_OK)
 async def update_todo_item(
     todo_id: Annotated[int, Path(description="The ID of the todo to update")],
     todo_data: Annotated[ToDo, Body(description="The data of the todo to update")],
     update_todo: Annotated[UpdateTodo, Depends(get_update_todo)],
 ) -> ToDoInDB:
-    return update_todo.execute(todo_id, todo_data)
+    try:
+        return update_todo.update_by_id(todo_id, todo_data)
+    except ValueError as e:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
 
 
-@router.delete("/{todo_id}", response_model=bool)
+@router.delete("/{todo_id}", response_model=bool, status_code=status.HTTP_200_OK)
 async def delete_todo_item(
     todo_id: Annotated[int, Path(description="The ID of the todo to delete")],
     delete_todo: Annotated[DeleteTodo, Depends(get_delete_todo)],
