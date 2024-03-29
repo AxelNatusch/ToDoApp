@@ -17,6 +17,9 @@ router = APIRouter(
     tags=["todo"],
 )
 
+# here we choose the actual repository implementation to use
+# in this case, we are using an in-memory repository implementation so we can test the API without the need of a database
+# this can be easily changed to use a database repository implementation without changing the rest of the code
 repository: TodoRepository = InMemoryTodoRepository()
 
 
