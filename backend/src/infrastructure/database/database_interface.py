@@ -16,13 +16,13 @@ class DatabaseInterface(ABC):
         pass
 
     @abstractmethod
-    def start_transaction(self):
+    def transaction(self):
         pass
 
     @abstractmethod
-    def commit_transaction(self):
+    def commit(self):
         pass
 
     @abstractmethod
-    def rollback_transaction(self):
+    def rollback(self):
         pass
